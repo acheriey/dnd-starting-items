@@ -3,8 +3,6 @@ import "./App.css";
 import backpackItems from "./data/items";
 import goldOptions from "./data/gold";
 
-const goldRanges = ["3 cp", "15 sp", "1d6 gp", "2 gp, 5 sp", "7 gp", "a single platinum piece", "no gold, just lint"];
-
 function App() {
   const [items, setItems] = useState([]);
   const [gold, setGold] = useState("");
