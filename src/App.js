@@ -1,35 +1,34 @@
 import React, { useState } from "react";
 import "./App.css";
 import backpackItems from "./data/items";
-import getRandomGold from "./data/gold"; 
+import getRandomGold from "./data/gold";
 
 function App() {
   const [items, setItems] = useState([]);
   const [gold, setGold] = useState("");
   const [isRolling, setIsRolling] = useState(false);
 
+  const rollItems = () => {
+    setIsRolling(true);
+    setItems([]);
+    setGold("");
 
-  setIsRolling(true);
-  setItems([]);
+    setTimeout(() => {
+      const shuffled = [...backpackItems].sort(() => 0.5 - Math.random());
+      const selected = shuffled.slice(0, 3);
+      const randomGold = getRandomGold();
 
-selected.forEach((item, index) => {
-  setTimeout(() => {
-    setItems(prev => [...prev, item]);
-  }, index * 300); // 300ms delay per item
-});
+      // stagger the items
+      selected.forEach((item, index) => {
+        setTimeout(() => {
+          setItems(prev => [...prev, item]);
+        }, index * 300); // 300ms delay per item
+      });
 
-  setGold("");
-  
-  setTimeout(() => {
-    const shuffled = [...backpackItems].sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, 3);
-    const randomGold = getRandomGold();
-  
-    setItems(selected);
-    setGold(randomGold);
-    setIsRolling(false);
-  }, 600); // delay for effect
-  
+      setGold(randomGold);
+      setIsRolling(false);
+    }, 600); // delay for overall effect
+  };
 
   return (
     <div className="container">
@@ -38,7 +37,9 @@ selected.forEach((item, index) => {
       {items.length === 0 ? (
         <>
           <p>Generate random starting items for your D&D PC.</p>
-          <button onClick={rollItems}>Roll</button>
+          <button onClick={rollItems} className={isRolling ? "rolling" : ""}>
+            {isRolling ? "Rolling..." : "Roll"}
+          </button>
         </>
       ) : (
         <>
@@ -52,13 +53,9 @@ selected.forEach((item, index) => {
             <li>{gold}</li>
           </ul>
 
-          <button
-           onClick={rollItems}
-            className={isRolling ? "rolling" : ""}
-          >
-            {isRolling ? "Rolling..." : "Roll"}
+          <button onClick={rollItems} className={isRolling ? "rolling" : ""}>
+            {isRolling ? "Rolling..." : "Roll Again"}
           </button>
-
         </>
       )}
     </div>
