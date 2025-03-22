@@ -6,15 +6,30 @@ import getRandomGold from "./data/gold";
 function App() {
   const [items, setItems] = useState([]);
   const [gold, setGold] = useState("");
+  const [isRolling, setIsRolling] = useState(false);
 
-  const rollItems = () => {
+
+  setIsRolling(true);
+  setItems([]);
+
+selected.forEach((item, index) => {
+  setTimeout(() => {
+    setItems(prev => [...prev, item]);
+  }, index * 300); // 300ms delay per item
+});
+
+  setGold("");
+  
+  setTimeout(() => {
     const shuffled = [...backpackItems].sort(() => 0.5 - Math.random());
     const selected = shuffled.slice(0, 3);
     const randomGold = getRandomGold();
-
+  
     setItems(selected);
     setGold(randomGold);
-  };
+    setIsRolling(false);
+  }, 600); // delay for effect
+  
 
   return (
     <div className="container">
@@ -37,7 +52,13 @@ function App() {
             <li>{gold}</li>
           </ul>
 
-          <button onClick={rollItems}>Roll Again</button>
+          <button
+           onClick={rollItems}
+            className={isRolling ? "rolling" : ""}
+          >
+            {isRolling ? "Rolling..." : "Roll"}
+          </button>
+
         </>
       )}
     </div>
