@@ -1,16 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
-
-const backpackItems = [
-  "Smutty romance novel",
-  "Aroma oils labeled 'Goblin Musk'",
-  "Broken necklace from your ex",
-  "Enchanted mug that always smells like cocoa",
-  "Tiny stuffed owlbear",
-  "Crumpled love letter",
-  "Potion of questionable origin",
-  "Wooden spoon engraved with 'Champion of Soup'",
-];
+import backpackItems from "./data/items";
+import goldOptions from "./data/gold";
 
 const goldRanges = ["3 cp", "15 sp", "1d6 gp", "2 gp, 5 sp", "7 gp", "a single platinum piece", "no gold, just lint"];
 
@@ -21,7 +12,8 @@ function App() {
   const rollItems = () => {
     const shuffled = [...backpackItems].sort(() => 0.5 - Math.random());
     const selected = shuffled.slice(0, 3);
-    const randomGold = goldRanges[Math.floor(Math.random() * goldRanges.length)];
+    const randomGold = goldOptions[Math.floor(Math.random() * goldOptions.length)];
+
 
     setItems(selected);
     setGold(randomGold);
