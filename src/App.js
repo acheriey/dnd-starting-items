@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import backpackItems from "./data/items";
-import goldOptions from "./data/gold";
+import getRandomGold from "./data/gold"; // ✅ THIS must be correct
 
 function App() {
   const [items, setItems] = useState([]);
@@ -10,8 +10,7 @@ function App() {
   const rollItems = () => {
     const shuffled = [...backpackItems].sort(() => 0.5 - Math.random());
     const selected = shuffled.slice(0, 3);
-    const randomGold = goldOptions[Math.floor(Math.random() * goldOptions.length)];
-
+    const randomGold = getRandomGold();
 
     setItems(selected);
     setGold(randomGold);
@@ -30,9 +29,7 @@ function App() {
         <>
           <h2><em>Your backpack has…</em></h2>
           <ul>
-            {items.map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
+            {items.map((item, i) => <li key={i}>{item}</li>)}
           </ul>
 
           <h2><em>Your coin purse has…</em></h2>
