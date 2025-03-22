@@ -64,10 +64,10 @@ const flavorTextOptions = [
     const cp = gp === 0 ? Math.floor(Math.random() * 10) : 0;
   
     const coinParts = [];
-    if (gp > 0) coinParts.push(`${gp} gold`);
-    if (pp > 0) coinParts.push(`${pp} platinum`);
-    if (sp > 0) coinParts.push(`${sp} silver`);
-    if (cp > 0) coinParts.push(`${cp} copper`);
+    if (gp > 0) coinParts.push(`${gp} gold pieces`);
+    if (pp > 0) coinParts.push(`${pp} platinum pieces`);
+    if (sp > 0) coinParts.push(`${sp} silver pieces`);
+    if (cp > 0) coinParts.push(`${cp} copper pieces`);
     
   
     const baseGold = coinParts.join(", ");
