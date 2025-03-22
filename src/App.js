@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import backpackItems from "./data/items";
-import getRandomGold from "./data/gold"; // ✅ THIS must be correct
+import getRandomGold from "./data/gold"; 
 
 function App() {
   const [items, setItems] = useState([]);
