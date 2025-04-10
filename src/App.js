@@ -2,14 +2,20 @@ import React, { useState } from "react";
 import "./App.css";
 import backpackItems from "./data/items";
 import getRandomGold from "./data/gold";
+import loadingFlavorText from "./data/loadingText";
 
 function App() {
   const [items, setItems] = useState([]);
   const [gold, setGold] = useState("");
   const [isRolling, setIsRolling] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingText, setLoadingText] = useState("");
 
   const rollItems = () => {
+    const flavor = loadingFlavorText[Math.floor(Math.random() * loadingFlavorText.length)];
+    setLoadingText(flavor);
     setIsRolling(true);
+    setIsLoading(true);
     setItems([]);
     setGold("");
 
@@ -18,27 +24,31 @@ function App() {
       const selected = shuffled.slice(0, 3);
       const randomGold = getRandomGold();
 
-      // stagger the items
       selected.forEach((item, index) => {
         setTimeout(() => {
           setItems(prev => [...prev, item]);
-        }, index * 300); // 300ms delay per item
+        }, index * 300);
       });
 
       setGold(randomGold);
       setIsRolling(false);
-    }, 600); // delay for overall effect
+      setIsLoading(false);
+    }, 2500);
   };
 
   return (
     <div className="container">
-      <h1>What does my D&D character have?</h1>
-
-      {items.length === 0 ? (
+      {!isLoading && items.length === 0 && <h1>What does my D&D character have?</h1>}
+      {isLoading ? (
+        <div className="loading-screen">
+          <p className="flavor-text">{loadingText}</p>
+          <img src="/loading-image.png" alt="Loading backpack" className="backpack-img" />
+        </div>
+      ) : items.length === 0 ? (
         <>
           <p>Generate random starting items for your D&D PC.</p>
           <button onClick={rollItems} className={isRolling ? "rolling" : ""}>
-            {isRolling ? "Rolling..." : "Roll"}
+            {isRolling ? "Rolling..." : "Look inside your backpack"}
           </button>
         </>
       ) : (
@@ -54,7 +64,7 @@ function App() {
           </ul>
 
           <button onClick={rollItems} className={isRolling ? "rolling" : ""}>
-            {isRolling ? "Rolling..." : "Roll Again"}
+            {isRolling ? "Rolling..." : "Find a different backpack"}
           </button>
         </>
       )}

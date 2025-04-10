@@ -23,10 +23,15 @@ h1 {
   font-weight: bold;
 }
 
+.loading-screen .screen-title {
+  display: none;
+}
+
 h2 {
-  font-size: 1.1rem;
+  font-size: 1.6rem;
   color: #a8c2dd;
   margin-top: 2rem;
+  text-align: left;
 }
 
 p {
@@ -55,7 +60,6 @@ li {
   }
 }
 
-
 button {
   background-color: #fdf6f6;
   color: #2b2329;
@@ -76,4 +80,51 @@ button.rolling {
   transform: scale(0.95);
   opacity: 0.8;
   transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 0.4s ease-out;
+  text-align: center;
+  padding: 2rem;
+}
+
+.backpack-img {
+  width: 250px; /* smaller image */
+  max-width: 100%;
+  animation: float 3s ease-in-out infinite;
+  margin-top: 1rem;
+}
+
+.flavor-text {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+  color: #a8c2dd;
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
