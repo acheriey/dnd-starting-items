@@ -62,12 +62,29 @@ function App() {
           model: "gpt-4",
           messages: [
             {
-              role: "system",
-              content: "You are a creative D&D item generator. Only generate humorous or quirky backpack contents for a character."
+              "role": "system",
+              "content": "You are a creative assistant that specializes in quirky, immersive fantasy RPG item creation. Always return a single flavorful item as a sentence, suitable for a humorous or moody fantasy setting."
             },
             {
               role: "user",
-              content: "Come up with three random items that an adventurer finds in their backpack. Let it be a mix of non magical and magical items, none with obvious combat utility. It should be quirky, weird, random, cute, humorous, or just plain useless. Keep it short like with no item name."
+              content: `Generate 3 whimsical, flavorful item that could appear in a Dungeons & Dragons-style adventurer's backpack. It should be written as a single sentence, like a quirky inventory entry. Choose from one of these categories and match the tone accordingly:
+
+ Magical but Mundane – Slightly enchanted items with minor, amusing or peculiar magical effects. Nothing powerful or combat-related. Think passive or aesthetic utility.
+ Sentimental & Personal – Objects filled with emotional value, nostalgia, or mysterious past attachments. Often bittersweet, poetic, or deeply personal.
+ Weird, Funny, or Gross – Outlandish, absurd, or mildly disturbing objects with humorous or uncanny flair.
+ Cursed or Suspicious – Odd or eerie objects that seem dangerous, unsettling, or mildly cursed. Evoke mystery or danger without being outright evil.
+ Survival & Utility – Practical adventuring gear with a twist: handmade, oddly specific, or creatively designed for niche uses.
+
+Examples:
+- A spoon that makes any food taste faintly of honey.
+- Childhood stuffed bear with one eye.
+- Rock that looks exactly like a butt.
+- Potion labeled 'Definitely Not Poison' (it's empty).
+- Bone whistle that repels rats.
+
+**Do not number the items.**  
+Just list three immersive item descriptions as standalone sentences. No intro text, no explanation—just the items.
+`
             }
           ],
         }),
@@ -77,9 +94,7 @@ function App() {
       const raw = data.choices[0].message.content;
       const generatedItems = raw.split("\n").filter(Boolean);
       return generatedItems.map(item => item.trim());
-
-
-          } catch (err) {
+    } catch (err) {
       console.error("Failed to fetch chaos items:", err);
       return [
         "???",
